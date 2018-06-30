@@ -1,0 +1,277 @@
+ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.ke... | sudo apt-key add -
+    2  wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+    3  echo "deb http://pkg.jenkins-ci.org/debian binary/" >> /etc/apt/sources.list
+    4  apt-get update
+    5  apt-get install jenkins
+    6  sudo add-apt-repository ppa:webupd8team/java -y
+    7  sudo apt-get update
+    8  sudo apt-get install oracle-java8-installer
+    9  apt-get install jenkins
+   10  service jenkins start
+      link :8080
+	  install sbt plugin update after restart
+	  update JDK
+	  Java 8
+	  /usr/lib/jvm/java-8-oracle
+	  SBT configure
+	  Name sbt
+	  /usr/share/sbt-launcher-packaging/bin/sbin-launch.jar
+	  -Xmx512M
+	  :save
+	  New project ->freestyle->example-app->git>https://github.com/kathirvel2020/play-demo.git
+	  Build:
+	  Sbt->
+	  leve it as it :save
+	  Buildnow
+   11  echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+   12  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+   13  apt-get update
+   14  sudo apt-get install sbt
+   15  wget https://downloads.typesafe.com/typesafe-activator/1.3.6/typesafe-activator-1.3.6-minimal.zip
+   16  unzip typesafe-activator-1.3.6-minimal.zip
+   17  apt-get install unzip
+   18  unzip typesafe-activator-1.3.6-minimal.zip
+   19  ls
+   20  mv activator-1.3.6-minimal/ bin
+   21  . .profile
+   22  ls bin
+   23  exit
+   24  activator new example-app play-java
+   25  cd
+   26  activator new example-app play-java
+   27  ln -s /home/vagrant/bin/activator /usr/bin/activator
+   28  activator new example-app play-java
+   29  ls
+   30  cd example-app/
+   31  ls
+   32  activator run
+   33  apt-get install git
+   34  git init
+   35  git config --global user.email "bestlifekathirvel@gmail.com"
+   36  git config --global user.name "kathirvel2020"
+   37  git add
+   38  git add .
+   39  git commit -am "initial"
+   40  git remote add origin https://giyhub.com/kathirvel/play-demo.git
+   41  git push -u origin master
+   42  git remote add origin https://github.com/kathirvel/play-demo.git
+   43  git push -u origin master
+   44  ls
+   45  ls -la
+   46  cd .git/info/
+   47  ll
+   48  cd ..
+   49  rm -rf .git
+   50  git init
+   51  git add .
+   52  git commit -am "initial"
+   53  git remote add origin https://github.com/kathirvel/play-demo.git
+   54  git push -u origin master
+   55  git remote add origin https://github.com/kathirvel2020/play-demo.git
+   56  history
+   57  rm -rf .git
+   58  git init
+   59  git config --global user.email "bestlifekathirvel@gmail.com"
+   60  git config --global user.name "kathirvel2020"
+   61  git add .
+   62  git commit -am "initial"
+   63  git remote add origin https://github.com/kathirvel2020/play-demo.git
+   64  git push -u origin master
+   65  git pull
+   66  cd
+   67  history
+   68  service jenkins status
+   69  service jenkins stop
+   70  service jenkins start
+   71  history
+
+   
+   
+   
+   Jenkins
+
+These procedures are explained in the Jenkins lectures. Copy paste the contents of this file to a text file on your computer. To install jenkins yourself, you can copy paste the commands and URLs from this file.
+
+Vagrantfile
+Vagrant.configure(2) do |config|
+
+config.vm.define "jenkins" do |jenkins|
+
+jenkins.vm.box = "ubuntu/trusty64"
+
+jenkins.vm.network "private_network", ip: "192.168.0.252"
+
+jenkins.vm.hostname = “jenkins"
+
+jenkins.vm.provider "virtualbox" do |v|
+
+v.memory = 4096
+
+v.cpus = 2
+
+end
+
+end
+
+end
+
+Jenkins Installation
+sudo -s
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.ke... | sudo apt-key add -
+
+
+
+echo "deb http://pkg.jenkins-ci.org/debian binary/" >> /etc/apt/sources.list
+
+apt-get update
+
+apt-get install jenkins
+
+service jenkins start
+
+Java 8 Installation
+sudo add-apt-repository ppa:webupd8team/java -y
+
+sudo apt-get update
+
+sudo apt-get install oracle-java8-installer
+
+sbt Installation
+echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+
+sudo apt-get update 
+
+sudo apt-get install sbt
+
+Play framework
+wget https://downloads.typesafe.com/typesafe-activator/1.3.6/typesafe-activator-1.3.6-minimal.zip
+
+unzip typsafe-activator-*zip
+
+mv activator-1.3.6-minimal/ bin
+
+. .profile
+
+Running the app
+activator new example-app play-java
+sudo ln -s /home/govind/activator-1.3.4/activator /usr/bin/activator
+
+cd example-app
+
+./activator run # optional
+
+Version control
+sudo apt-get install git
+
+git init
+
+git config --global user.email “your@email”
+
+git config --global user.name “your name”
+
+git add .
+
+git commit -am “initial commit”
+
+git remote add origin https://github.com/YOURUSERNAME/play-demo.git
+
+git push -u origin master
+
+Jenkins config
+URL: http://192.168.0.252:8080
+
+Plugins to install: git plugin & sbt
+
+JVM config: JVM_HOME: /usr/lib/jvm/java-8-oracle
+
+sbt config: sbt launcher jar: /usr/share/sbt-launcher-packaging/bin/sbt-launch.jar
+
+sbt config: sbt launch arguments: -Xmx512M
+
+Jenkins Packaging
+enablePlugins(DebianPlugin)
+
+maintainer := “Your Name <email@address>“
+
+packageSummary := "My custom package"
+
+packageDescription := "Package"
+
+Jenkins Packaging shell script
+./activator debian:packageBin
+
+Jenkins artifact storage
+sudo apt-get install rng-tools
+
+sudo rngd -r /dev/urandom
+
+sudo su - jenkins
+
+gpg --gen-key
+
+gpg --list-keys
+
+gpg --keyserver keyserver.ubuntu.com --send-key PRIVATEKEYID
+
+exit
+
+sudo apt-get install nginx reprepro
+
+sudo -s
+
+mkdir -p /var/repositories
+
+cd /var/repositories
+
+mkdir conf
+
+cd conf
+
+touch options
+
+cat << EOF > distributions
+
+Codename: trusty
+
+Components: main
+
+Architectures: i386 amd64
+
+SignWith: 06EFF9F7
+
+EOF
+
+chown -R jenkins:jenkins /var/repositories
+
+cat << EOF > /etc/nginx/sites-available/default
+
+server {
+
+## Let your repository be the root directory
+
+root /var/repositories;
+
+access_log /var/log/nginx/repo.access.log;
+
+error_log /var/log/nginx/repo.error.log;
+
+## Prevent access to Reprepro's files
+
+location ~ /(db|conf) {
+
+deny all;
+
+return 404;
+
+}
+
+}
+
+EOF
+
+service nginx restart
+
+Jenkins reprepro
+reprepro -b /var/repositories includedeb trusty ./target/example-app_*.deb
